@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rowLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/newsTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:fontFamily="sans-serif-medium"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/blue_title"
+        android:textSize="@dimen/news_text_title"  />
+
+    <ImageView
+        android:id="@+id/rightIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/image_todo"
+        android:layout_below="@+id/newsTitle"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="5dp"
+        android:src="@drawable/right_arrow" />
+
+    <ImageView
+        android:id="@+id/newsIcon"
+        android:layout_width="@dimen/news_icon_width"
+        android:layout_height="@dimen/news_icon_height"
+        android:layout_toLeftOf="@+id/rightIcon"
+        android:layout_below="@+id/newsTitle"
+        android:layout_marginRight="2dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="2dp"
+        android:contentDescription="@string/image_todo"/>
+
+    <TextView
+        android:id="@+id/newsDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/newsTitle"
+        android:layout_toLeftOf="@+id/newsIcon"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="sans-serif-condensed"
+        android:maxLines="@integer/news_row_count"
+        android:textSize="@dimen/news_text_desp" />
+
+</RelativeLayout>

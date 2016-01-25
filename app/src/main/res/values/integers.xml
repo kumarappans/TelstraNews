@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- News description row count -->
+    <integer name="news_row_count">3</integer>
+</resources>

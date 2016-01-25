@@ -1,0 +1,1331 @@
+Index: app/src/main/res/values/dimens.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/dimens.xml	(revision )
++++ app/src/main/res/values/dimens.xml	(revision )
+@@ -0,0 +1,18 @@
++<resources>
++
++    <!-- Default screen margins, per the Android Design guidelines. -->
++    <dimen name="activity_horizontal_margin">16dp</dimen>
++    <dimen name="activity_vertical_margin">16dp</dimen>
++    <dimen name="nav_drawer_width">260dp</dimen>
++    <dimen name="fab_margin">16dp</dimen>
++
++
++    <!-- News Main Page -->
++    <dimen name="news_icon_width">120dp</dimen>
++    <dimen name="news_icon_height">80dp</dimen>
++
++    <!-- News Text Size -->
++    <dimen name="news_text_desp">14sp</dimen>
++    <dimen name="news_text_title">18sp</dimen>
++
++</resources>
+Index: app/src/main/res/values-xxhdpi/dimens.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values-xxhdpi/dimens.xml	(revision )
++++ app/src/main/res/values-xxhdpi/dimens.xml	(revision )
+@@ -0,0 +1,16 @@
++<resources>
++    <!-- Default screen margins, per the Android Design guidelines. -->
++    <dimen name="activity_horizontal_margin">16dp</dimen>
++    <dimen name="activity_vertical_margin">16dp</dimen>
++    <dimen name="fab_margin">16dp</dimen>
++
++
++
++    <dimen name="news_icon_width">120dp</dimen>
++    <dimen name="news_icon_height">80dp</dimen>
++
++    <dimen name="news_text_desp">16sp</dimen>
++    <dimen name="news_text_title">20sp</dimen>
++
++
++</resources>
+Index: app/src/main/res/values-hdpi/dimens.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values-hdpi/dimens.xml	(revision )
++++ app/src/main/res/values-hdpi/dimens.xml	(revision )
+@@ -0,0 +1,14 @@
++<resources>
++    <!-- Default screen margins, per the Android Design guidelines. -->
++    <dimen name="activity_horizontal_margin">16dp</dimen>
++    <dimen name="activity_vertical_margin">16dp</dimen>
++    <dimen name="fab_margin">16dp</dimen>
++
++
++    <dimen name="news_icon_width">120dp</dimen>
++    <dimen name="news_icon_height">80dp</dimen>
++
++    <dimen name="news_text_desp">14sp</dimen>
++    <dimen name="news_text_title">18sp</dimen>
++
++</resources>
+Index: app/src/main/res/values/integers.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/integers.xml	(revision )
++++ app/src/main/res/values/integers.xml	(revision )
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++
++    <!-- News description row count -->
++    <integer name="news_row_count">3</integer>
++</resources>
+\ No newline at end of file
+Index: app/src/main/res/drawable/list_background.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/list_background.xml	(revision )
++++ app/src/main/res/drawable/list_background.xml	(revision )
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="utf-8"?>
++<selector xmlns:android="http://schemas.android.com/apk/res/android">
++
++    <item android:drawable="@color/blue" android:state_activated="true" />
++    <item android:drawable="@color/blue" android:state_pressed="true" />
++    <item android:drawable="@color/blue" android:state_checked="true" />
++    <item android:drawable="@color/blue" android:state_focused="true" />
++    <item android:drawable="@android:color/holo_red_dark" />
++</selector>
+\ No newline at end of file
+Index: app/src/main/java/com/telstra/telstranews/ui/NewsRecylerViewAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/telstra/telstranews/ui/NewsRecylerViewAdapter.java	(revision )
++++ app/src/main/java/com/telstra/telstranews/ui/NewsRecylerViewAdapter.java	(revision )
+@@ -0,0 +1,99 @@
++package com.telstra.telstranews.ui;
++
++import android.content.Context;
++import android.support.v7.widget.RecyclerView;
++import android.text.TextUtils;
++import android.view.LayoutInflater;
++import android.view.View;
++import android.view.ViewGroup;
++import android.widget.ImageView;
++import android.widget.TextView;
++
++import com.squareup.picasso.Picasso;
++import com.telstra.telstranews.R;
++import com.telstra.telstranews.model.NewsRowData;
++
++import java.util.ArrayList;
++
++
++/**
++ *
++ * @author kumarappan
++ *
++ *
++ * NewsRecylerViewAdapter is the adapter class for Recycler view
++ *
++ *
++ *
++ */
++public class NewsRecylerViewAdapter extends RecyclerView.Adapter<NewsRecylerViewAdapter.ViewHolder> {
++    private ArrayList<NewsRowData> mNewInfoData;
++    private Context mContext;
++
++    // Provide a reference to the views for each data item
++    // Complex data items may need more than one view per item, and
++    // you provide access to all the views for a data item in a view holder
++    public class ViewHolder extends RecyclerView.ViewHolder {
++
++       /*
++        *  each data item available in the list
++        */
++        public TextView txtNewsHeader;
++        public TextView txtNewsDescription;
++        public ImageView imgNewsIcon;
++
++        public ViewHolder(View v) {
++            super(v);
++            txtNewsHeader = (TextView) v.findViewById(R.id.newsTitle);
++            txtNewsDescription = (TextView) v.findViewById(R.id.newsDescription);
++            imgNewsIcon = (ImageView) v.findViewById(R.id.newsIcon);
++        }
++    }
++
++    // Provide a suitable constructor (depends on the kind of dataset)
++    public NewsRecylerViewAdapter(Context context, ArrayList<NewsRowData> dataset) {
++        mNewInfoData = dataset;
++        mContext = context;
++    }
++
++    // Create new views (invoked by the layout manager)
++    @Override
++    public NewsRecylerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
++                                                   int viewType) {
++        // create a new view
++        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.news_row_layout, parent, false);
++        // set the view's size, margins, paddings and layout parameters
++        ViewHolder viewHolder = new ViewHolder(v);
++        return viewHolder;
++    }
++
++    // Replace the contents of a view (invoked by the layout manager)
++    @Override
++    public void onBindViewHolder(ViewHolder holder, int position) {
++        // - get element from your dataset at this position
++        // - replace the contents of the view with that element
++        NewsRowData newsData = mNewInfoData.get(position);
++
++        final String newsDataTitle = newsData.getTitle();
++        final String newsDataDescription = newsData.getDescription();
++        final String newsImageURL = newsData.getImageHref();
++
++        holder.txtNewsHeader.setText(newsDataTitle);
++        holder.txtNewsDescription.setText(newsDataDescription);
++
++        if(!TextUtils.isEmpty(newsImageURL)) {
++            Picasso.with(mContext).load(newsImageURL).into(holder.imgNewsIcon);
++        } else {
++            //TODO: set the default icon
++            //holder.imgNewsIcon.setImageResource(R.drawable.default_icon);
++        }
++    }
++
++    // Return the size of your dataset (invoked by the layout manager)
++    @Override
++    public int getItemCount() {
++        return mNewInfoData.size();
++    }
++
++
++}
+\ No newline at end of file
+Index: app/src/main/java/com/telstra/telstranews/util/Utils.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/telstra/telstranews/util/Utils.java	(revision )
++++ app/src/main/java/com/telstra/telstranews/util/Utils.java	(revision )
+@@ -0,0 +1,65 @@
++package com.telstra.telstranews.util;
++
++import android.app.AlertDialog;
++import android.content.Context;
++import android.content.DialogInterface;
++import android.net.ConnectivityManager;
++import android.net.NetworkInfo;
++
++import com.telstra.telstranews.R;
++
++/**
++ *
++ * @author Kumarappan Subramanian
++ *
++ * Created on 1/21/16.
++ *
++ *
++ *  Utils is utility methods, used in the application
++ *
++ *
++ */
++public class Utils {
++
++
++    /**
++     *
++     * isNetworkAvailable is used to check internet connection is avaliable or not
++     *
++     * @param context - context of the application
++     * @return - true if the network is available
++     */
++    public static boolean isNetworkAvailable(Context context) {
++        ConnectivityManager connectivityManager
++                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
++        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
++        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
++    }
++
++
++    /**
++     * showAlertDialog is used to show the alert dialog
++     *
++     *
++     * @param context - context of the application
++     * @param message - message to show the dialog
++     */
++    public static void showAlertDialog(Context context, String message) {
++        //Initialize the alert dialog
++        AlertDialog.Builder builder = new AlertDialog.Builder(context);
++
++        //Set the values
++        builder.setTitle(context.getResources().getString(R.string.alert_title));
++        builder.setMessage(message)
++                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
++                    public void onClick(DialogInterface dialog, int id) {
++                        //dismiss the dialog
++                        dialog.dismiss();
++                    }
++                });
++        // Create the AlertDialog object and return it
++        builder.create();
++        builder.show();
++    }
++
++}
+Index: app/src/main/res/drawable/progressbarbackground.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/progressbarbackground.xml	(revision )
++++ app/src/main/res/drawable/progressbarbackground.xml	(revision )
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<rotate xmlns:android="http://schemas.android.com/apk/res/android"
++    android:pivotX="50%" android:pivotY="50%" android:fromDegrees="0"
++    android:toDegrees="360">
++    <shape android:shape="ring" android:innerRadiusRatio="3"
++        android:thicknessRatio="8" android:useLevel="false">
++
++        <size android:width="76dip" android:height="76dip" />
++        <gradient android:type="sweep" android:useLevel="false"
++            android:startColor="#f2132fe4"
++            android:endColor="#f2132fe4"
++            android:angle="0"
++            />
++    </shape>
++</rotate>
+\ No newline at end of file
+Index: app/src/main/res/values-v21/styles.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values-v21/styles.xml	(revision )
++++ app/src/main/res/values-v21/styles.xml	(revision )
+@@ -0,0 +1,11 @@
++<resources>>
++
++    <style name="MyMaterialTheme" parent="MyMaterialTheme.Base">
++        <item name="android:windowContentTransitions">true</item>
++        <item name="android:windowAllowEnterTransitionOverlap">true</item>
++        <item name="android:windowAllowReturnTransitionOverlap">true</item>
++        <item name="android:windowSharedElementEnterTransition">@android:transition/move</item>
++        <item name="android:windowSharedElementExitTransition">@android:transition/move</item>
++    </style>
++
++</resources>
+Index: app/src/test/java/com/telstra/telstranews/ExampleUnitTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/test/java/com/telstra/telstranews/ExampleUnitTest.java	(revision )
++++ app/src/test/java/com/telstra/telstranews/ExampleUnitTest.java	(revision )
+@@ -0,0 +1,15 @@
++package com.telstra.telstranews;
++
++import org.junit.Test;
++
++import static org.junit.Assert.*;
++
++/**
++ * To work on unit tests, switch the Test Artifact in the Build Variants view.
++ */
++public class ExampleUnitTest {
++    @Test
++    public void addition_isCorrect() throws Exception {
++        assertEquals(4, 2 + 2);
++    }
++}
+\ No newline at end of file
+Index: app/src/main/java/com/telstra/telstranews/network/NewsDataNetworkCallback.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/telstra/telstranews/network/NewsDataNetworkCallback.java	(revision )
++++ app/src/main/java/com/telstra/telstranews/network/NewsDataNetworkCallback.java	(revision )
+@@ -0,0 +1,25 @@
++package com.telstra.telstranews.network;
++
++import com.telstra.telstranews.model.NewsDataResponse;
++
++
++/**
++ *
++ * @author Kumarappan Subramanian
++ *
++ * Created on 1/21/16.
++ *
++ *
++ *  NewsDataNetworkCallback is interface callback for the service call
++ *
++ *
++ */
++public interface NewsDataNetworkCallback {
++
++
++    public void onSuccess(NewsDataResponse responseData);
++
++    public void onFailure(String errorMessage);
++
++
++}
+Index: app/src/main/res/values-xhdpi/dimens.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values-xhdpi/dimens.xml	(revision )
++++ app/src/main/res/values-xhdpi/dimens.xml	(revision )
+@@ -0,0 +1,15 @@
++<resources>
++    <!-- Default screen margins, per the Android Design guidelines. -->
++    <dimen name="activity_horizontal_margin">16dp</dimen>
++    <dimen name="activity_vertical_margin">16dp</dimen>
++    <dimen name="fab_margin">16dp</dimen>
++
++
++
++    <dimen name="news_icon_width">120dp</dimen>
++    <dimen name="news_icon_height">80dp</dimen>
++
++    <dimen name="news_text_desp">14sp</dimen>
++    <dimen name="news_text_title">18sp</dimen>
++
++</resources>
+Index: app/src/main/res/values/colors.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/colors.xml	(revision )
++++ app/src/main/res/values/colors.xml	(revision )
+@@ -0,0 +1,20 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++
++    <!-- Action bar colors-->
++    <color name="colorPrimary">#F50057</color>
++    <color name="colorPrimaryDark">#C51162</color>
++    <color name="textColorPrimary">#FFFFFF</color>
++    <color name="windowBackground">#FFFFFF</color>
++    <color name="navigationBarColor">#000000</color>
++    <color name="colorAccent">#FF80AB</color>
++
++    <color name="blue_title">#00007f</color>
++    <color name="green">#009900</color>
++
++
++    <color name="black">@android:color/black</color>
++    <color name="blue">#000099</color>
++
++    <color name="light_gray">#ddd</color>
++</resources>
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(revision )
++++ app/src/main/AndroidManifest.xml	(revision )
+@@ -0,0 +1,24 @@
++<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++    package="com.telstra.telstranews">
++
++    <uses-permission android:name="android.permission.INTERNET"/>
++    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
++    <application
++        android:allowBackup="true"
++        android:icon="@mipmap/ic_launcher"
++        android:label="@string/app_name"
++        android:supportsRtl="true"
++        android:theme="@style/MyMaterialTheme" >
++        <activity
++            android:name=".ui.TelstraNewsActivity"
++            android:label="@string/app_name"
++            android:theme="@style/AppTheme.NoActionBar" >
++            <intent-filter>
++                <action android:name="android.intent.action.MAIN" />
++
++                <category android:name="android.intent.category.LAUNCHER" />
++            </intent-filter>
++        </activity>
++    </application>
++
++</manifest>
+Index: app/src/main/res/menu/menu_first.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/menu/menu_first.xml	(revision )
++++ app/src/main/res/menu/menu_first.xml	(revision )
+@@ -0,0 +1,7 @@
++<menu xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto" >
++    <item android:id="@+id/action_refresh"
++        android:title="@string/action_refresh"
++        android:orderInCategory="100"
++        app:showAsAction="never" />
++</menu>
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/build.gradle	(revision )
++++ app/build.gradle	(revision )
+@@ -0,0 +1,31 @@
++apply plugin: 'com.android.application'
++
++android {
++    compileSdkVersion 23
++    buildToolsVersion "23.0.2"
++
++    defaultConfig {
++        applicationId "com.telstra.telstranews"
++        minSdkVersion 21
++        targetSdkVersion 23
++        versionCode 1
++        versionName "1.0"
++    }
++    buildTypes {
++        release {
++            minifyEnabled false
++            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
++        }
++    }
++}
++
++dependencies {
++    compile fileTree(dir: 'libs', include: ['*.jar'])
++    testCompile 'junit:junit:4.12'
++    compile 'com.android.support:appcompat-v7:23.1.1'
++    compile 'com.android.support:support-v4:23.1.+'
++    compile 'com.android.support:design:23.1.1'
++    compile 'com.mcxiaoke.volley:library:1.0.17'
++    compile 'com.google.code.gson:gson:2.2.+'
++    compile 'com.squareup.picasso:picasso:2.5.2'
++}
+Index: app/src/main/java/com/telstra/telstranews/model/NewsRowData.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/telstra/telstranews/model/NewsRowData.java	(revision )
++++ app/src/main/java/com/telstra/telstranews/model/NewsRowData.java	(revision )
+@@ -0,0 +1,85 @@
++
++package com.telstra.telstranews.model;
++
++import com.google.gson.annotations.Expose;
++import com.google.gson.annotations.SerializedName;
++
++
++/**
++ *
++ * @author Kumarappan Subramanian
++ *
++ * Created on 1/21/16.
++ *
++ *
++ *  NewsDataResponse is model class for the GSON ogbect
++ *
++ *
++ */
++public class NewsRowData {
++
++    @SerializedName("title")
++    @Expose
++    private String title;
++    @SerializedName("description")
++    @Expose
++    private String description;
++    @SerializedName("imageHref")
++    @Expose
++    private String imageHref;
++
++    /**
++     * 
++     * @return
++     *     The title
++     */
++    public String getTitle() {
++        return title;
++    }
++
++    /**
++     * 
++     * @param title
++     *     The title
++     */
++    public void setTitle(String title) {
++        this.title = title;
++    }
++
++    /**
++     * 
++     * @return
++     *     The description
++     */
++    public String getDescription() {
++        return description;
++    }
++
++    /**
++     * 
++     * @param description
++     *     The description
++     */
++    public void setDescription(String description) {
++        this.description = description;
++    }
++
++    /**
++     * 
++     * @return
++     *     The imageHref
++     */
++    public String getImageHref() {
++        return imageHref;
++    }
++
++    /**
++     * 
++     * @param imageHref
++     *     The imageHref
++     */
++    public void setImageHref(String imageHref) {
++        this.imageHref = imageHref;
++    }
++
++}
+Index: app/proguard-rules.pro
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/proguard-rules.pro	(revision )
++++ app/proguard-rules.pro	(revision )
+@@ -0,0 +1,17 @@
++# Add project specific ProGuard rules here.
++# By default, the flags in this file are appended to flags specified
++# in /Users/bhakee/Library/Android/sdk/tools/proguard/proguard-android.txt
++# You can edit the include path and order by changing the proguardFiles
++# directive in build.gradle.
++#
++# For more details, see
++#   http://developer.android.com/guide/developing/tools/proguard.html
++
++# Add any project specific keep options here:
++
++# If your project uses WebView with JS, uncomment the following
++# and specify the fully qualified class name to the JavaScript interface
++# class:
++#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
++#   public *;
++#}
+Index: app/src/androidTest/java/com/telstra/telstranews/ApplicationTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/androidTest/java/com/telstra/telstranews/ApplicationTest.java	(revision )
++++ app/src/androidTest/java/com/telstra/telstranews/ApplicationTest.java	(revision )
+@@ -0,0 +1,13 @@
++package com.telstra.telstranews;
++
++import android.app.Application;
++import android.test.ApplicationTestCase;
++
++/**
++ * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
++ */
++public class ApplicationTest extends ApplicationTestCase<Application> {
++    public ApplicationTest() {
++        super(Application.class);
++    }
++}
+\ No newline at end of file
+Index: app/src/main/java/com/telstra/telstranews/ui/TelstraNewsActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/telstra/telstranews/ui/TelstraNewsActivity.java	(revision )
++++ app/src/main/java/com/telstra/telstranews/ui/TelstraNewsActivity.java	(revision )
+@@ -0,0 +1,243 @@
++package com.telstra.telstranews.ui;
++
++import android.app.Activity;
++import android.graphics.Color;
++import android.graphics.PorterDuff;
++import android.os.Bundle;
++import android.support.v4.widget.SwipeRefreshLayout;
++import android.support.v7.app.AppCompatActivity;
++import android.support.v7.widget.LinearLayoutManager;
++import android.support.v7.widget.RecyclerView;
++import android.support.v7.widget.Toolbar;
++import android.text.TextUtils;
++import android.view.Menu;
++import android.view.MenuItem;
++import android.view.View;
++import android.view.ViewGroup;
++import android.widget.ProgressBar;
++
++import com.telstra.telstranews.R;
++import com.telstra.telstranews.model.NewsDataResponse;
++import com.telstra.telstranews.model.NewsRowData;
++import com.telstra.telstranews.network.NewsDataNetworkCallback;
++import com.telstra.telstranews.network.NewsRequestService;
++import com.telstra.telstranews.util.Utils;
++
++import java.util.ArrayList;
++
++/**
++ * @author Kumarappan Subramanian
++ *         <p/>
++ *         Created on 1/21/16.
++ *         <p/>
++ *         <p/>
++ *         TelstraNewsActivity is used to show the News feeds. It is using Re-cycler view to show the
++ *         list.
++ *         <p/>
++ *         We can able to pull down to refresh the list view and update the news feeds.
++ */
++public class TelstraNewsActivity extends AppCompatActivity {
++
++
++    /*
++     * RecyclerView - to list out all the news
++     */
++    private RecyclerView mRecyclerView;
++    /*
++     * RecyclerView.Adapter - is used for RecyclerView
++     */
++    public RecyclerView.Adapter mNewsListAdapter;
++    /*
++     * LayoutManager is used for RecyclerView
++     */
++    private RecyclerView.LayoutManager mLayoutManager;
++    /*
++     * SwipeRefreshLayout is used to pull down and refresh the news
++     */
++    private SwipeRefreshLayout swipeView;
++
++    private ProgressBar progressBar;
++
++    private Toolbar mToolbar;
++
++
++    @Override
++    protected void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++
++
++        //Set the content view of the activity
++        setContentView(R.layout.activity_main);
++
++        mToolbar = (Toolbar) findViewById(R.id.toolbar);
++
++        setSupportActionBar(mToolbar);
++        getSupportActionBar().setDisplayShowHomeEnabled(true);
++
++        //Initialize the pull down refresh list
++        swipeView = (SwipeRefreshLayout) findViewById(R.id.swipe);
++
++        //Set the color of the progress bar of swipe view
++        swipeView.setColorSchemeColors(Color.BLUE, Color.GRAY);
++
++        // Add the listener for the swiper view
++        swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
++            @Override
++            public void onRefresh() {
++
++                //clear all the items
++                clearAllData();
++
++                // Call the service call to get the news feed
++                callNewsDataServiceCall();
++
++            }
++        });
++
++
++        // Initialize the RecyclerView
++        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
++
++        // use this setting to improve performance if you know that changes
++        // in content do not change the layout size of the RecyclerView
++        mRecyclerView.setHasFixedSize(true);
++
++        // use a linear layout manager
++        mLayoutManager = new LinearLayoutManager(this);
++        mRecyclerView.setLayoutManager(mLayoutManager);
++
++        //Add the line between the items in recycler view
++        mRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(this));
++
++        //Initialize the news adapter
++        mNewsListAdapter = new NewsRecylerViewAdapter(this, new ArrayList<NewsRowData>());
++
++        //Set the adapter for the recycler view
++        mRecyclerView.setAdapter(mNewsListAdapter);
++
++        //Initialize the progress bar
++        progressBar = (ProgressBar) findViewById(R.id.progressbar);
++
++        //Set the intermediate to true
++        progressBar.setIndeterminate(true);
++
++        //Set visible to the user for the first time
++        progressBar.setVisibility(View.VISIBLE);
++
++        // Call the service call to get the news feed
++        callNewsDataServiceCall();
++
++    }
++
++
++    /**
++     * callNewsDataServiceCall - used to call the service call to get the news feed using Volley library
++     */
++    private void callNewsDataServiceCall() {
++
++
++        if (!Utils.isNetworkAvailable(this)) {
++
++            //Dismiss the progress bar
++            progressBar.setVisibility(View.GONE);
++
++            //show the alert dialog
++            Utils.showAlertDialog(this, getString(R.string.internet_error_message));
++
++
++            return;
++        }
++
++        //Call the swipe refreshing to true
++        swipeView.setRefreshing(true);
++
++        NewsRequestService.callNewsRequest(this, new NewsDataNetworkCallback() {
++            @Override
++            public void onSuccess(NewsDataResponse responseData) {
++
++                //Dismiss the progress bar
++                dismissProgressbar();
++
++                String newsTitle = responseData.getTitle();
++                if(!TextUtils.isEmpty(newsTitle)) {
++                    mToolbar.setTitle(newsTitle);
++                }
++
++                //Show the list
++                showNewsDataList((ArrayList<NewsRowData>) responseData.getRows());
++            }
++
++            @Override
++
++            public void onFailure(String errorMessage) {
++                //Dismiss the progress bar
++                dismissProgressbar();
++            }
++        });
++    }
++
++
++    /**
++     * Show the data to the list/ We are using recycler list view
++     *
++     * @param rowData
++     */
++    private void showNewsDataList(ArrayList<NewsRowData> rowData) {
++        mNewsListAdapter = new NewsRecylerViewAdapter(this, rowData);
++        mRecyclerView.swapAdapter(mNewsListAdapter, true);
++    }
++
++
++    /**
++     * Dismiss the progress bar
++     */
++    private void dismissProgressbar() {
++        //Set the pull down to false to dismiss the progress bar
++        swipeView.setRefreshing(false);
++
++        //Dismiss the progress bar
++        if (progressBar != null && progressBar.isShown()) {
++            progressBar.setVisibility(View.GONE);
++        }
++    }
++
++
++    @Override
++    public boolean onCreateOptionsMenu(Menu menu) {
++        // Inflate the menu; this adds items to the action bar if it is present.
++        getMenuInflater().inflate(R.menu.menu_first, menu);
++        return true;
++    }
++
++    @Override
++    public boolean onOptionsItemSelected(MenuItem item) {
++        // Handle action bar item clicks here. The action bar will
++        // automatically handle clicks on the Home/Up button, so long
++        // as you specify a parent activity in AndroidManifest.xml.
++        int id = item.getItemId();
++
++        //noinspection SimplifiableIfStatement
++        if (id == R.id.action_refresh) {
++
++            //clear all the items
++            clearAllData();
++
++            // Call the service call to get the news feed
++            callNewsDataServiceCall();
++            return true;
++        }
++
++        return super.onOptionsItemSelected(item);
++    }
++
++
++    /**
++     * clearAllData - used to clear all the data in the recylcle view
++     *
++     */
++    private void clearAllData() {
++            mNewsListAdapter.notifyItemRangeRemoved(0, mRecyclerView.getAdapter().getItemCount());
++    }
++
++
++}
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/strings.xml	(revision )
++++ app/src/main/res/values/strings.xml	(revision )
+@@ -0,0 +1,12 @@
++<resources>
++    <string name="app_name">Telstra News</string>
++    <string name="action_settings">Settings</string>
++    <string name="action_refresh">Refresh</string>
++    <string name="image_todo">TODO</string>
++
++    <string name="ok">OK</string>
++    <string name="alert_title">Info</string>
++    <string name="internet_error_message">Internet not available, Cross check your internet connectivity and try again</string>
++    <string name="error_message">An error occurred. Please try again</string>
++
++</resources>
+Index: app/src/main/res/layout/activity_main.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_main.xml	(revision )
++++ app/src/main/res/layout/activity_main.xml	(revision )
+@@ -0,0 +1,31 @@
++<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    android:id="@+id/swipe"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent">
++
++    <RelativeLayout
++        android:layout_width="match_parent"
++        android:layout_height="match_parent">
++
++        <include
++            layout="@layout/actionbar_toolbar" />
++
++        <ProgressBar
++            android:id="@+id/progressbar"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_centerInParent="true"
++            style="@android:style/Widget.ProgressBar.Large"
++            />
++
++        <android.support.v7.widget.RecyclerView
++            android:id="@+id/my_recycler_view"
++            android:layout_width="match_parent"
++            android:layout_height="match_parent"
++            android:layout_below="@+id/toolbar"
++            android:descendantFocusability="blocksDescendants"
++            android:scrollbars="vertical" />
++
++    </RelativeLayout>
++
++</android.support.v4.widget.SwipeRefreshLayout>
+\ No newline at end of file
+Index: app/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/.gitignore	(revision )
++++ app/.gitignore	(revision )
+@@ -0,0 +1,1 @@
++/build
+Index: app/src/main/res/values-w820dp/dimens.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values-w820dp/dimens.xml	(revision )
++++ app/src/main/res/values-w820dp/dimens.xml	(revision )
+@@ -0,0 +1,6 @@
++<resources>
++    <!-- NewsDataResponse customization of dimensions originally defined in res/values/dimens.xml
++         (such as screen margins) for screens with more than 820dp of available width. This
++         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively). -->
++    <dimen name="activity_horizontal_margin">64dp</dimen>
++</resources>
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/vcs.xml	(revision 997ef28337dbabf2a0e467c541f83c683ca5c44d)
++++ .idea/vcs.xml	(revision )
+@@ -1,6 +1,7 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="VcsDirectoryMappings">
++    <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
+     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: app/src/main/java/com/telstra/telstranews/network/NewsRequestService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/telstra/telstranews/network/NewsRequestService.java	(revision )
++++ app/src/main/java/com/telstra/telstranews/network/NewsRequestService.java	(revision )
+@@ -0,0 +1,72 @@
++package com.telstra.telstranews.network;
++
++import android.content.Context;
++import android.util.Log;
++
++import com.android.volley.Request;
++import com.android.volley.RequestQueue;
++import com.android.volley.Response;
++import com.android.volley.VolleyError;
++import com.android.volley.toolbox.StringRequest;
++import com.android.volley.toolbox.Volley;
++import com.google.gson.Gson;
++import com.telstra.telstranews.model.NewsDataResponse;
++
++/**
++ *
++ * @author Kumarappan Subramanian
++ *
++ * Created on 1/21/16.
++ *
++ *
++ *  NewsRequestService is used to call the service call by using Volley library
++ *
++ *  We are using GSON library to parse the response and converted it to object
++ *
++ *
++ */
++public class NewsRequestService {
++
++    public static void callNewsRequest(Context context, final NewsDataNetworkCallback callback) {
++
++        RequestQueue queue = Volley.newRequestQueue(context);
++        String url = "https://dl.dropboxusercontent.com/u/746330/facts.json";
++
++
++        StringRequest newsDataRequestCall = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
++
++            @Override
++            public void onResponse(String response) {
++                Log.e("response", "###response   ---  " + response);
++
++
++                Gson gson = new Gson();
++                NewsDataResponse responseObj = gson.fromJson(response, NewsDataResponse.class);
++
++                if(responseObj != null) {
++                    callback.onSuccess(responseObj);
++                } else {
++                    callback.onFailure("");
++                }
++
++
++
++            }
++        }, new Response.ErrorListener() {
++
++            @Override
++            public void onErrorResponse(VolleyError error) {
++                Log.e("response", "###response -- error   ---  " + error.getMessage());
++
++                callback.onFailure("");
++            }
++        });
++        queue.add(newsDataRequestCall);
++    }
++
++
++
++
++
++
++}
+Index: app/src/main/java/com/telstra/telstranews/ui/SimpleDividerItemDecoration.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/telstra/telstranews/ui/SimpleDividerItemDecoration.java	(revision )
++++ app/src/main/java/com/telstra/telstranews/ui/SimpleDividerItemDecoration.java	(revision )
+@@ -0,0 +1,49 @@
++package com.telstra.telstranews.ui;
++
++import android.content.Context;
++import android.graphics.Canvas;
++import android.graphics.drawable.Drawable;
++import android.support.v7.widget.RecyclerView;
++import android.view.View;
++
++import com.telstra.telstranews.R;
++
++
++/**
++ *
++ * @author Kumarappan Subramanian
++ *
++ * Created on 1/21/16.
++ *
++ *
++ *  SimpleDividerItemDecoration is used to call the service call by using Volley library
++ *
++ *
++ */
++
++public class SimpleDividerItemDecoration extends RecyclerView.ItemDecoration {
++    private Drawable mDivider;
++
++    public SimpleDividerItemDecoration(Context context) {
++        mDivider = context.getResources().getDrawable(R.drawable.line_divider, null);
++    }
++
++    @Override
++    public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
++        int left = parent.getPaddingLeft();
++        int right = parent.getWidth() - parent.getPaddingRight();
++
++        int childCount = parent.getChildCount();
++        for (int i = 0; i < childCount; i++) {
++            View child = parent.getChildAt(i);
++
++            RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
++
++            int top = child.getBottom() + params.bottomMargin;
++            int bottom = top + mDivider.getIntrinsicHeight();
++
++            mDivider.setBounds(left, top, right, bottom);
++            mDivider.draw(c);
++        }
++    }
++}
+\ No newline at end of file
+Index: app/src/main/res/drawable/line_divider.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/line_divider.xml	(revision )
++++ app/src/main/res/drawable/line_divider.xml	(revision )
+@@ -0,0 +1,11 @@
++<?xml version="1.0" encoding="utf-8"?>
++<shape xmlns:android="http://schemas.android.com/apk/res/android"
++    android:shape="rectangle">
++
++    <size
++        android:width="1dp"
++        android:height="1dp" />
++
++    <solid android:color="@color/light_gray" />
++
++</shape>
+\ No newline at end of file
+Index: app/src/main/res/layout/news_row_layout.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/news_row_layout.xml	(revision )
++++ app/src/main/res/layout/news_row_layout.xml	(revision )
+@@ -0,0 +1,56 @@
++<?xml version="1.0" encoding="utf-8"?>
++<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    android:id="@+id/rowLayout"
++    android:layout_width="fill_parent"
++    android:layout_height="wrap_content"
++
++    android:padding="5dp">
++
++    <TextView
++        android:id="@+id/newsTitle"
++        android:layout_width="fill_parent"
++        android:layout_height="wrap_content"
++        android:layout_alignParentTop="true"
++        android:fontFamily="sans-serif-medium"
++        android:paddingBottom="10dp"
++        android:paddingTop="10dp"
++        android:layout_marginLeft="15dp"
++        android:layout_marginTop="10dp"
++        android:textColor="@color/blue_title"
++        android:textSize="@dimen/news_text_title"  />
++
++    <ImageView
++        android:id="@+id/rightIcon"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:contentDescription="@string/image_todo"
++        android:layout_below="@+id/newsTitle"
++        android:layout_alignParentRight="true"
++        android:layout_marginRight="5dp"
++        android:src="@drawable/right_arrow" />
++
++    <ImageView
++        android:id="@+id/newsIcon"
++        android:layout_width="@dimen/news_icon_width"
++        android:layout_height="@dimen/news_icon_height"
++        android:layout_toLeftOf="@+id/rightIcon"
++        android:layout_below="@+id/newsTitle"
++        android:layout_marginRight="2dp"
++        android:layout_marginBottom="10dp"
++        android:layout_marginLeft="2dp"
++        android:contentDescription="@string/image_todo"/>
++
++    <TextView
++        android:id="@+id/newsDescription"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_alignParentLeft="true"
++        android:layout_below="@+id/newsTitle"
++        android:layout_toLeftOf="@+id/newsIcon"
++        android:layout_marginLeft="15dp"
++        android:layout_marginBottom="10dp"
++        android:fontFamily="sans-serif-condensed"
++        android:maxLines="@integer/news_row_count"
++        android:textSize="@dimen/news_text_desp" />
++
++</RelativeLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/telstra/telstranews/model/NewsDataResponse.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/telstra/telstranews/model/NewsDataResponse.java	(revision )
++++ app/src/main/java/com/telstra/telstranews/model/NewsDataResponse.java	(revision )
+@@ -0,0 +1,67 @@
++
++package com.telstra.telstranews.model;
++
++import com.google.gson.annotations.Expose;
++import com.google.gson.annotations.SerializedName;
++
++import java.util.ArrayList;
++import java.util.List;
++
++
++/**
++ *
++ * @author Kumarappan Subramanian
++ *
++ * Created on 1/21/16.
++ *
++ *
++ *  NewsDataResponse is model class for the GSON ogbect
++ *
++ *
++ */
++public class NewsDataResponse {
++
++    @SerializedName("title")
++    @Expose
++    private String title;
++    @SerializedName("rows")
++    @Expose
++    private List<NewsRowData> rows = new ArrayList<NewsRowData>();
++
++    /**
++     * 
++     * @return
++     *     The title
++     */
++    public String getTitle() {
++        return title;
++    }
++
++    /**
++     * 
++     * @param title
++     *     The title
++     */
++    public void setTitle(String title) {
++        this.title = title;
++    }
++
++    /**
++     * 
++     * @return
++     *     The rows
++     */
++    public List<NewsRowData> getRows() {
++        return rows;
++    }
++
++    /**
++     * 
++     * @param rows
++     *     The rows
++     */
++    public void setRows(List<NewsRowData> rows) {
++        this.rows = rows;
++    }
++
++}
+Index: app/src/main/res/layout/actionbar_toolbar.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/actionbar_toolbar.xml	(revision )
++++ app/src/main/res/layout/actionbar_toolbar.xml	(revision )
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:local="http://schemas.android.com/apk/res-auto"
++    android:id="@+id/toolbar"
++    android:layout_width="match_parent"
++    android:layout_height="wrap_content"
++    android:minHeight="?attr/actionBarSize"
++    android:background="?attr/colorPrimary"
++    android:title="@string/app_name"
++    local:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
++    local:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
++    </android.support.v7.widget.Toolbar>

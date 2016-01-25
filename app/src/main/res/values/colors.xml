@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Action bar colors-->
+    <color name="colorPrimary">#F50057</color>
+    <color name="colorPrimaryDark">#C51162</color>
+    <color name="colorAccent">#FF80AB</color>
+
+    <color name="blue_title">#00007f</color>
+
+    <color name="light_gray">#ddd</color>
+</resources>
