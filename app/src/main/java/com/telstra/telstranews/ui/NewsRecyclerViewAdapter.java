@@ -65,6 +65,7 @@ public class NewsRecyclerViewAdapter extends RecyclerView.Adapter<NewsRecyclerVi
         // set the view's size, margins, padding and layout parameters
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
+
     }
 
     // Replace the contents of a view (invoked by the layout manager)
